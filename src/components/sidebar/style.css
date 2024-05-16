@@ -1,0 +1,31 @@
+.Sidebar {
+  box-shadow: var(--shadow-4);
+  padding: 1rem 0;
+  left: 0;
+  top: 0;
+  height: 100%;
+  max-width: 250px;
+}
+
+.Sidebar-nav {
+  padding: 0 1.5rem;
+}
+
+.Sidebar-title {
+  color: var(--gray-12);
+  text-decoration: none;
+}
+
+.Sidebar-title--anim {
+  display: block;
+  transition: opacity ease 0.2s;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    opacity: 0.5;
+    transition-duration: 0.1s;
+  }
+}
