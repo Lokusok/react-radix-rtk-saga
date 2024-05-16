@@ -1,5 +1,7 @@
 .Sidebar {
   box-shadow: var(--shadow-4);
+  position: relative;
+  z-index: 10;
   padding: 1rem 0;
   left: 0;
   top: 0;

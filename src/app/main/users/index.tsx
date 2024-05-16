@@ -1,8 +1,7 @@
-import React from 'react';
-import PageLayout from '../../../containers/page-layout';
+import CategoryLayout from '../../../containers/category-layout';
 
 function UsersPage() {
-  return <PageLayout title="Пользователи"></PageLayout>;
+  return <CategoryLayout title="Пользователи"></CategoryLayout>;
 }
 
 export default UsersPage;

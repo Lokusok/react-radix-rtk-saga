@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { TThemeContext, TThemeProviderProps, TThemes } from './types';
 import { Theme } from '@radix-ui/themes';
 
@@ -18,10 +18,23 @@ export function useTheme(): TThemeContext {
   return ctx;
 }
 
+function initTheme(): TThemes {
+  const result = localStorage.getItem('THEME') || 'light';
+  return result as TThemes;
+}
+
 function ThemeProvider({ children }: TThemeProviderProps) {
-  const [theme, setTheme] = useState<TThemes>('light');
+  const [theme, setTheme] = useState<TThemes>(initTheme);
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+
+  useEffect(() => {
+    const onUserQuitHandler = () => localStorage.setItem('THEME', theme);
+
+    window.addEventListener('beforeunload', onUserQuitHandler);
+
+    return () => window.removeEventListener('beforeunload', onUserQuitHandler);
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

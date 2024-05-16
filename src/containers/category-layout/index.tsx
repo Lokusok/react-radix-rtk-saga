@@ -12,11 +12,16 @@ function PageLayout(props: TPageLayoutProps) {
 
   return (
     <motion.div
+      style={{ position: 'relative', zIndex: 0 }}
       initial={{ opacity: 0, translateY: -100 }}
       animate={{ opacity: 1, translateY: 0 }}
     >
       <Section>
-        <Heading as="h3">{title}</Heading>
+        <Heading style={{ fontWeight: 400 }} as="h3">
+          Категория:&nbsp;
+          <b>{title}</b>
+        </Heading>
+
         {children}
       </Section>
     </motion.div>

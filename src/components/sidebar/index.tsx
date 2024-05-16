@@ -11,7 +11,7 @@ import {
 } from '@radix-ui/themes';
 import { SunMoon } from 'lucide-react';
 import { useTheme } from '../../providers/theme';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 type TSidebarProps = {
   links: Array<{ key: string | number; path: string; renderText: string }>;
@@ -21,10 +21,11 @@ type TSidebarProps = {
 function Sidebar(props: TSidebarProps) {
   const { links, titleHref } = props;
   const { toggleTheme } = useTheme();
+  const location = useLocation();
 
   return (
     <Box height={window.innerHeight + 'px'} className="Sidebar">
-      {titleHref ? (
+      {titleHref && location.pathname !== titleHref ? (
         <Heading
           className="Sidebar-title Sidebar-title--anim"
           align="center"
@@ -49,7 +50,12 @@ function Sidebar(props: TSidebarProps) {
       >
         <Flex className="Sidebar-inner-nav" direction="column" gap="3">
           {links.map((link) => (
-            <Button variant="classic" asChild>
+            <Button
+              disabled={link.path === location.pathname}
+              key={link.key}
+              variant="classic"
+              asChild
+            >
               <Link to={link.path}>{link.renderText}</Link>
             </Button>
           ))}
