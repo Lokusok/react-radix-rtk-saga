@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Section } from '@radix-ui/themes';
+import { Box, Container, Heading, Section } from '@radix-ui/themes';
 
 type TPageLayoutProps = {
   title: string;
@@ -10,14 +10,16 @@ function PageLayout(props: TPageLayoutProps) {
   const { children, title } = props;
 
   return (
-    <Section>
-      <Heading style={{ fontWeight: 400 }} as="h3">
-        Категория:&nbsp;
-        <b>{title}</b>
-      </Heading>
+    <Container>
+      <Section>
+        <Heading style={{ fontWeight: 400 }} as="h3">
+          Категория:&nbsp;
+          <b>{title}</b>
+        </Heading>
 
-      {children}
-    </Section>
+        <Box pt="3">{children}</Box>
+      </Section>
+    </Container>
   );
 }
 

@@ -1,17 +1,8 @@
 import './style.css';
 
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  IconButton,
-  Separator,
-  Tooltip,
-} from '@radix-ui/themes';
-import { SunMoon } from 'lucide-react';
-import { useTheme } from '@src/providers/theme';
+import { Box, Button, Flex, Heading, Separator } from '@radix-ui/themes';
 import { Link, useLocation } from 'react-router-dom';
+import ThemeToggler from '@src/containers/theme-toggler';
 
 type TSidebarProps = {
   links: Array<{ key: string | number; path: string; renderText: string }>;
@@ -20,11 +11,11 @@ type TSidebarProps = {
 
 function Sidebar(props: TSidebarProps) {
   const { links, titleHref } = props;
-  const { toggleTheme } = useTheme();
+
   const location = useLocation();
 
   return (
-    <Box height={window.innerHeight + 'px'} className="Sidebar">
+    <Box className="Sidebar">
       {titleHref && location.pathname !== titleHref ? (
         <Heading
           className="Sidebar-title Sidebar-title--anim"
@@ -62,16 +53,7 @@ function Sidebar(props: TSidebarProps) {
         </Flex>
 
         <Flex justify="center">
-          <Tooltip content="Переключить тему">
-            <IconButton
-              onClick={toggleTheme}
-              radius="full"
-              size="3"
-              variant="outline"
-            >
-              <SunMoon width="21" height="21" />
-            </IconButton>
-          </Tooltip>
+          <ThemeToggler />
         </Flex>
       </Flex>
     </Box>
