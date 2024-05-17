@@ -1,8 +1,9 @@
-import { Box, Flex, Tabs, TextField } from '@radix-ui/themes';
-import { Search } from 'lucide-react';
+import { Box, Flex, Tabs } from '@radix-ui/themes';
 
 import { motion } from 'framer-motion';
 import UsersTable from '../users-table';
+import UsersSearch from '../users-search';
+import UsersCreate from '../users-create';
 
 function UsersWrapper() {
   return (
@@ -16,13 +17,16 @@ function UsersWrapper() {
 
           <Box pt="3">
             <Tabs.Content value="view">
-              <TextField.Root placeholder="Поиск по любому полю">
-                <TextField.Slot>
-                  <Search height="16" width="16" />
-                </TextField.Slot>
-              </TextField.Root>
+              <UsersSearch />
+
               <Box pt="3">
                 <UsersTable />
+              </Box>
+            </Tabs.Content>
+
+            <Tabs.Content value="create">
+              <Box pt="3">
+                <UsersCreate />
               </Box>
             </Tabs.Content>
           </Box>

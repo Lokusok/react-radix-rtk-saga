@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Callout, Kbd, Skeleton, Table } from '@radix-ui/themes';
 import { useAppDispatch, useAppSelector } from '@src/store';
 import { fetchUsersStart } from '@src/store/slices/users';
@@ -7,27 +7,33 @@ import { TicketX } from 'lucide-react';
 function UsersTable() {
   const dispatch = useAppDispatch();
 
+  const searchQuery = useAppSelector((state) => state.search.searchQuery);
   const users = useAppSelector((state) => state.users.list);
   const waiting = useAppSelector((state) => state.users.waiting);
   const error = useAppSelector((state) => state.users.error);
 
+  const fetchUsers = useCallback(
+    () => dispatch(fetchUsersStart(searchQuery)),
+    [dispatch, searchQuery]
+  );
+
   useEffect(() => {
-    dispatch(fetchUsersStart());
-  }, [dispatch]);
+    fetchUsers();
+  }, [fetchUsers]);
 
   useEffect(() => {
     if (!error) return;
 
     const keyDownHandler = (e: KeyboardEvent) => {
       if (e.shiftKey && e.code === 'KeyR') {
-        dispatch(fetchUsersStart());
+        fetchUsers();
       }
     };
 
     window.addEventListener('keydown', keyDownHandler);
 
     return () => window.removeEventListener('keydown', keyDownHandler);
-  }, [dispatch, error]);
+  }, [fetchUsers, error]);
 
   if (error) {
     return (
@@ -39,6 +45,17 @@ function UsersTable() {
           Ошибка. .Нажмите &nbsp;<Kbd>Shift + R</Kbd>,&nbsp; чтобы запросить
           пользователей снова.
         </Callout.Text>
+      </Callout.Root>
+    );
+  }
+
+  if (!waiting && users.length <= 0) {
+    return (
+      <Callout.Root color="blue">
+        <Callout.Icon>
+          <TicketX />
+        </Callout.Icon>
+        <Callout.Text>Пользователей не найдено.</Callout.Text>
       </Callout.Root>
     );
   }

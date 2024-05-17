@@ -1,14 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from './slices/users';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './root-saga';
 import { useDispatch, useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+
+import rootSaga from './root-saga';
+import usersReducer from './slices/users';
+import searchReducer from './slices/search';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
     users: usersReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
