@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TSearchInitialState } from './types';
+import { TSearchInitialState, TOrder } from './types';
 
 const initialState: TSearchInitialState = {
   searchQuery: '',
+  order: 'default',
 };
 
 const searchSlice = createSlice({
@@ -12,9 +13,12 @@ const searchSlice = createSlice({
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
+    setOrder: (state, action: PayloadAction<TOrder>) => {
+      state.order = action.payload;
+    },
   },
 });
 
-export const { setSearchQuery } = searchSlice.actions;
+export const { setSearchQuery, setOrder } = searchSlice.actions;
 
 export default searchSlice.reducer;

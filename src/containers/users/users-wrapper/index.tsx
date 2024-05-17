@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import UsersTable from '../users-table';
 import UsersSearch from '../users-search';
 import UsersCreate from '../users-create';
+import OrderToggler from '@src/containers/order-toggler';
 
 function UsersWrapper() {
   return (
@@ -18,6 +19,10 @@ function UsersWrapper() {
           <Box pt="3">
             <Tabs.Content value="view">
               <UsersSearch />
+
+              <Box pt="3">
+                <OrderToggler />
+              </Box>
 
               <Box pt="3">
                 <UsersTable />
