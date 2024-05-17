@@ -35,3 +35,19 @@ export async function deleteUser(userId: string) {
     method: 'DELETE',
   });
 }
+
+/**
+ * Полное обновление пользователя
+ */
+export async function editUser(user: TUser) {
+  const res = await fetch(`${BASE_URL}/users/${user.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(user),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  });
+  const json = await res.json();
+
+  return json;
+}

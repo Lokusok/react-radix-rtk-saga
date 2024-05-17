@@ -1,17 +1,29 @@
 import { Flex, IconButton, Table, Tooltip } from '@radix-ui/themes';
 import { TUser } from '@src/store/slices/users/types';
 import { Pencil, Trash2 } from 'lucide-react';
-import UserDeleteDialogAssert from '../user-delete-dialog-assert';
+import UserDeleteDialogAssert from './user-delete-dialog-assert';
+import UserEditDialog from './user-edit-dialog';
 
-type TUserRowProps = {
+type TUserRowPropsViaDialog =
+  | {
+      deleteByDialog: true;
+      onDialogReject: () => void;
+    }
+  | {
+      deleteByDialog?: never;
+      onDialogReject?: never;
+    };
+
+type TUserRowPropsDefault = {
   user: TUser;
   onEditActionClick: () => void;
   onDeleteActionClick?: () => void;
   onDelete: () => void;
-  onDialogReject?: () => void;
-  deleteByDialog?: boolean;
+  onEdit: (user: TUser) => void;
   disableButtons?: boolean;
 };
+
+type TUserRowProps = TUserRowPropsViaDialog & TUserRowPropsDefault;
 
 function UserRow(props: TUserRowProps) {
   const {
@@ -20,6 +32,7 @@ function UserRow(props: TUserRowProps) {
     onDeleteActionClick,
     deleteByDialog,
     onDelete,
+    onEdit,
     disableButtons,
     onDialogReject,
   } = props;
@@ -31,17 +44,22 @@ function UserRow(props: TUserRowProps) {
       <Table.Cell>{user.phone}</Table.Cell>
       <Table.Cell>
         <Flex gap="2">
-          <Tooltip content="Изменить">
-            <IconButton
-              disabled={disableButtons}
-              onClick={onEditActionClick}
-              size="2"
-              radius="full"
-              color="blue"
-            >
-              <Pencil width="18" />
-            </IconButton>
-          </Tooltip>
+          <UserEditDialog
+            onReject={onDialogReject}
+            onSuccess={onEdit}
+            user={user}
+            renderTrigger={() => (
+              <IconButton
+                disabled={disableButtons}
+                onClick={onEditActionClick}
+                size="2"
+                radius="full"
+                color="blue"
+              >
+                <Pencil width="18" />
+              </IconButton>
+            )}
+          />
           {deleteByDialog ? (
             <UserDeleteDialogAssert
               user={user}

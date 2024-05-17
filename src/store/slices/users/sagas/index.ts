@@ -4,12 +4,14 @@ import {
   createUserSuccess,
   deleteUserFailure,
   deleteUserSuccess,
+  editUserFailure,
+  editUserSuccess,
   fetchUsersFailure,
   fetchUsersSuccess,
 } from '..';
 import { TUser } from '../types';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createUser, deleteUser, fetchUsers } from '../api';
+import { createUser, deleteUser, editUser, fetchUsers } from '../api';
 
 /**
  * Запросить всех пользователей через поисковую строку
@@ -26,7 +28,7 @@ export function* fetchUsersSaga(action: PayloadAction<string>): Generator {
 }
 
 /**
- * Отправить запрос на создание пользователя
+ * Создать пользователя
  */
 export function* createUserSaga(action: PayloadAction<TUser>): Generator {
   try {
@@ -40,7 +42,7 @@ export function* createUserSaga(action: PayloadAction<TUser>): Generator {
 }
 
 /**
- * Отправить запрос на удаление пользователя
+ * Удалить пользователя
  */
 export function* deleteUserSaga(action: PayloadAction<string>): Generator {
   try {
@@ -49,6 +51,20 @@ export function* deleteUserSaga(action: PayloadAction<string>): Generator {
   } catch (error) {
     if (error instanceof Error) {
       yield put(deleteUserFailure(error.message));
+    }
+  }
+}
+
+/**
+ * Изменить пользователя
+ */
+export function* editUserSaga(action: PayloadAction<TUser>): Generator {
+  try {
+    const response = (yield call(editUser, action.payload)) as TUser;
+    yield put(editUserSuccess(response));
+  } catch (error) {
+    if (error instanceof Error) {
+      yield put(editUserFailure(error.message));
     }
   }
 }

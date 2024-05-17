@@ -57,6 +57,21 @@ const usersSlice = createSlice({
     setActiveUserId: (state, action: PayloadAction<string | null>) => {
       state.activeUserId = action.payload;
     },
+    editUserStart: (state, _: PayloadAction<TUser>) => {
+      state.waiting = true;
+      state.error = null;
+    },
+    editUserSuccess: (state, action: PayloadAction<TUser>) => {
+      state.list = state.list.map((user) =>
+        user.id === action.payload.id ? action.payload : user
+      );
+      state.waiting = false;
+      state.error = null;
+    },
+    editUserFailure: (state, action: PayloadAction<string>) => {
+      state.waiting = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -71,6 +86,9 @@ export const {
   deleteUserSuccess,
   deleteUserFailure,
   setActiveUserId,
+  editUserStart,
+  editUserSuccess,
+  editUserFailure,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

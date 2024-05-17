@@ -5,6 +5,7 @@ import { Callout, Kbd, Skeleton, Table } from '@radix-ui/themes';
 import { useAppDispatch, useAppSelector } from '@src/store';
 import {
   deleteUserStart,
+  editUserStart,
   fetchUsersStart,
   setActiveUserId,
 } from '@src/store/slices/users';
@@ -25,8 +26,12 @@ function UsersTable() {
     [dispatch, searchQuery]
   );
 
-  const handleEditActionClick = () => {
-    console.log('handleEditActionClick');
+  const handleEditActionClick = (user: TUser) => {
+    dispatch(setActiveUserId(user.id));
+  };
+
+  const handleEdit = (user: TUser) => {
+    dispatch(editUserStart(user));
   };
 
   const handleDeleteActionClick = (user: TUser) => {
@@ -110,18 +115,17 @@ function UsersTable() {
       ) : (
         <Table.Body>
           {users.map((user) => (
-            <>
-              <UserRow
-                key={user.id}
-                user={user}
-                disableButtons={activeUserId === user.id}
-                onEditActionClick={handleEditActionClick}
-                onDeleteActionClick={() => handleDeleteActionClick(user)}
-                onDialogReject={handleDialogReject}
-                deleteByDialog={true}
-                onDelete={() => handleDelete(user)}
-              />
-            </>
+            <UserRow
+              key={user.id}
+              user={user}
+              disableButtons={activeUserId === user.id}
+              onEditActionClick={() => handleEditActionClick(user)}
+              onDeleteActionClick={() => handleDeleteActionClick(user)}
+              onDialogReject={handleDialogReject}
+              deleteByDialog={true}
+              onDelete={() => handleDelete(user)}
+              onEdit={handleEdit}
+            />
           ))}
         </Table.Body>
       )}
