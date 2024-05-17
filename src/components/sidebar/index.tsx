@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from '@radix-ui/themes';
 import { SunMoon } from 'lucide-react';
-import { useTheme } from '../../providers/theme';
+import { useTheme } from '@src/providers/theme';
 import { Link, useLocation } from 'react-router-dom';
 
 type TSidebarProps = {

@@ -12,52 +12,19 @@ function AnimRoutes() {
   const location = useLocation();
 
   return (
-    <Routes location={location} key={location.pathname}>
-      <Route path="/">
-        <Route
-          path=""
-          element={
-            <AnimatePresence>
-              <Main />
-            </AnimatePresence>
-          }
-        >
-          <Route index element={<DefaultPage />} />
-          <Route
-            path="users"
-            element={
-              <AnimatePresence>
-                <UsersPage />
-              </AnimatePresence>
-            }
-          />
-          <Route
-            path="todos"
-            element={
-              <AnimatePresence>
-                <TodosPage />
-              </AnimatePresence>
-            }
-          />
-          <Route
-            path="comments"
-            element={
-              <AnimatePresence>
-                <CommentsPage />
-              </AnimatePresence>
-            }
-          />
-          <Route
-            path="photos"
-            element={
-              <AnimatePresence>
-                <PhotosPage />
-              </AnimatePresence>
-            }
-          />
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/">
+          <Route path="" element={<Main />}>
+            <Route index element={<DefaultPage />} />
+            <Route path="users" element={<UsersPage />} />
+            <Route path="todos" element={<TodosPage />} />
+            <Route path="comments" element={<CommentsPage />} />
+            <Route path="photos" element={<PhotosPage />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </AnimatePresence>
   );
 }
 

@@ -1,7 +1,12 @@
-import CategoryLayout from '../../../containers/category-layout';
+import CategoryLayout from '@src/containers/category-layout';
+import FadeIn from '@src/shared/fade-in';
 
 function TodosPage() {
-  return <CategoryLayout title="Список дел"></CategoryLayout>;
+  return (
+    <FadeIn>
+      <CategoryLayout title="Список дел"></CategoryLayout>
+    </FadeIn>
+  );
 }
 
 export default TodosPage;

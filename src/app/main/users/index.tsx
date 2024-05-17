@@ -1,7 +1,12 @@
-import CategoryLayout from '../../../containers/category-layout';
+import CategoryLayout from '@src/containers/category-layout';
+import FadeIn from '@src/shared/fade-in';
 
 function UsersPage() {
-  return <CategoryLayout title="Пользователи"></CategoryLayout>;
+  return (
+    <FadeIn>
+      <CategoryLayout title="Пользователи"></CategoryLayout>
+    </FadeIn>
+  );
 }
 
 export default UsersPage;

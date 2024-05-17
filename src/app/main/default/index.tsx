@@ -1,5 +1,5 @@
 import { Text } from '@radix-ui/themes';
-import PageLayout from '../../../containers/page-layout';
+import PageLayout from '@src/containers/page-layout';
 
 function DefaultPage() {
   return (
