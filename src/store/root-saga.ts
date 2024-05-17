@@ -1,9 +1,19 @@
-import { takeEvery } from 'redux-saga/effects';
-import { fetchUsersStart } from './slices/users';
-import { fetchUsersSaga } from './slices/users/sagas';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+  createUserStart,
+  deleteUserStart,
+  fetchUsersStart,
+} from './slices/users';
+import {
+  fetchUsersSaga,
+  createUserSaga,
+  deleteUserSaga,
+} from './slices/users/sagas';
 
 function* rootSaga() {
-  yield takeEvery(fetchUsersStart.toString(), fetchUsersSaga);
+  yield takeLatest(fetchUsersStart.toString(), fetchUsersSaga);
+  yield takeEvery(createUserStart.toString(), createUserSaga);
+  yield takeEvery(deleteUserStart.toString(), deleteUserSaga);
 }
 
 export default rootSaga;
