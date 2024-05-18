@@ -44,7 +44,7 @@ function UserEditDialog(props: TUserChangeDialogProps) {
     onSuccess(newUser);
   };
 
-  const handleSubmitButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmitButtonClick = () => {
     const isFormValid = formRef.current?.checkValidity();
     if (!isFormValid) return;
 
