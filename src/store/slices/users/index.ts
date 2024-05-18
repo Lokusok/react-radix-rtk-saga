@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TUser, TUsersInitialState } from './types';
+import { TOrder } from '../search/types';
 
 const initialState: TUsersInitialState = {
   waiting: false,
@@ -72,6 +73,12 @@ const usersSlice = createSlice({
       state.waiting = false;
       state.error = action.payload;
     },
+    reverseByPage: (state, action: PayloadAction<TOrder>) => {
+      // just for semantic (in real project we will not use it like in this project)
+      if (action.payload === 'default')
+        state.list = state.list.slice().reverse();
+      else state.list = state.list.slice().reverse();
+    },
   },
 });
 
@@ -89,6 +96,7 @@ export const {
   editUserStart,
   editUserSuccess,
   editUserFailure,
+  reverseByPage,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -9,17 +9,17 @@ const links = [
   {
     key: 2,
     path: '/todos',
-    renderText: 'Список дел',
+    renderText: 'Категория #2',
   },
   {
     key: 3,
     path: '/comments',
-    renderText: 'Комментарии',
+    renderText: 'Категория #3',
   },
   {
     key: 4,
     path: '/photos',
-    renderText: 'Фотографии',
+    renderText: 'Категория #4',
   },
 ];
 

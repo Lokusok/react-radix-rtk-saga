@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm run start:vite\" \"npm run start:server\"",
+    "start:vite": "vite",
+    "start:server": "json-server --watch db.json --port 3000",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -14,7 +16,9 @@
     "@radix-ui/react-form": "^0.0.3",
     "@radix-ui/themes": "^3.0.5",
     "@reduxjs/toolkit": "^2.2.5",
+    "concurrently": "^8.2.2",
     "framer-motion": "^11.2.3",
+    "json-server": "^1.0.0-beta.0",
     "lucide": "^0.378.0",
     "lucide-react": "^0.378.0",
     "react": "^18.2.0",
